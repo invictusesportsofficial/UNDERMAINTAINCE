@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Maintenance Mode</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Invictus | Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">INVICTUS<span>ESPORTS</span></div>
+<header class="navbar">
+  <div class="logo">INVICTUS<span>ESPORTS</span></div>
   <nav>
     <a href="#">Home</a>
     <a href="#">Tournaments</a>
@@ -19,33 +19,31 @@
   </nav>
 </header>
 
-<section class="hero">
-  <div class="illustration">
-    <div class="server">
-      <span></span><span></span><span></span>
-    </div>
-    <div class="arms left"></div>
-    <div class="arms right"></div>
-  </div>
+<main class="hero">
+  <div class="left-ghost"></div>
 
-  <div class="text">
-    <h1>SYSTEMS<br><strong>UNDER MAINTENANCE</strong></h1>
+  <div class="content">
+    <h1>
+      SYSTEMS<br>
+      <span>UNDER MAINTENANCE</span>
+    </h1>
+
     <p>
       We’re upgrading our systems.<br>
       Be back soon — stronger than ever.
     </p>
 
     <div class="progress">
-      <div class="fill"></div>
+      <div class="bar"></div>
     </div>
 
-    <div class="time">
-      Estimated return in <span id="countdown">02:00:00</span>
+    <div class="eta">
+      Estimated return in <strong id="timer">02:00:00</strong>
     </div>
 
     <button class="notify">Notify Me When Live</button>
   </div>
-</section>
+</main>
 
 <script src="script.js"></script>
 </body>
