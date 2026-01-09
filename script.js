@@ -1,14 +1,13 @@
-let remaining = 7200;
-const output = document.getElementById("countdown");
+let seconds = 7200;
+const timer = document.getElementById("timer");
 
 setInterval(() => {
-  if (remaining <= 0) return;
+  if (seconds <= 0) return;
+  seconds--;
 
-  remaining--;
+  const h = String(Math.floor(seconds / 3600)).padStart(2, "0");
+  const m = String(Math.floor((seconds % 3600) / 60)).padStart(2, "0");
+  const s = String(seconds % 60).padStart(2, "0");
 
-  const h = String(Math.floor(remaining / 3600)).padStart(2, "0");
-  const m = String(Math.floor((remaining % 3600) / 60)).padStart(2, "0");
-  const s = String(remaining % 60).padStart(2, "0");
-
-  output.textContent = `${h}:${m}:${s}`;
+  timer.textContent = `${h}:${m}:${s}`;
 }, 1000);
