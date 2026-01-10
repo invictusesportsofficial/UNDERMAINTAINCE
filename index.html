@@ -34,16 +34,17 @@
                         'spin-slow': 'spin 10s linear infinite',
                         'spin-reverse': 'spin-reverse 15s linear infinite',
                         'pulse-fast': 'pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'load-bar': 'load 2s ease-out forwards'
+                        'load-loop': 'loadLoop 3s ease-in-out infinite'
                     },
                     keyframes: {
                         'spin-reverse': {
                             '0%': { transform: 'rotate(0deg)' },
                             '100%': { transform: 'rotate(-360deg)' },
                         },
-                        'load': {
-                            '0%': { width: '0%' },
-                            '100%': { width: '75%' }
+                        'loadLoop': {
+                            '0%': { width: '0%', opacity: '1' },
+                            '80%': { width: '100%', opacity: '1' },
+                            '100%': { width: '100%', opacity: '0' }
                         }
                     }
                 }
@@ -59,7 +60,6 @@
                 linear-gradient(90deg, rgba(20, 20, 20, 0.8) 1px, transparent 1px);
             background-size: 50px 50px;
             color: white;
-            /* Allow vertical scroll, prevent horizontal scroll */
             overflow-x: hidden; 
             overflow-y: auto;
         }
@@ -78,6 +78,17 @@
         .social-btn:hover {
             transform: translateY(-2px);
             filter: brightness(1.2);
+        }
+
+        /* Blinking cursor effect for the task text */
+        .cursor-blink::after {
+            content: '_';
+            animation: blink 1s infinite;
+            color: #ff0033;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
     </style>
 </head>
@@ -150,15 +161,23 @@
 
                 <div class="w-full max-w-md space-y-2 pt-4 border-b border-white/5 pb-8">
                     <div class="flex justify-between text-sm font-teko uppercase tracking-wider text-gray-300">
-                        <span>Updating Servers</span>
-                        <span>75%</span>
+                        <span id="dynamic-header" class="text-esports-red/80 tracking-widest">INITIALIZING...</span>
+                        <span class="animate-pulse text-esports-red">IN PROGRESS</span>
                     </div>
+                    
                     <div class="w-full h-3 bg-gray-800 rounded-full overflow-hidden border border-white/5 relative">
-                        <div class="h-full bg-gradient-to-r from-esports-red to-red-500 w-[75%] relative animate-load-bar shadow-[0_0_15px_rgba(255,0,51,0.8)]">
-                            <div class="absolute top-0 right-0 bottom-0 w-full bg-gradient-to-l from-white/20 to-transparent"></div>
+                        <div class="h-full bg-gradient-to-r from-esports-red via-red-500 to-white w-full animate-load-loop relative shadow-[0_0_20px_rgba(255,0,51,0.6)]">
+                            <div class="absolute top-0 right-0 bottom-0 w-4 bg-white blur-[4px]"></div>
                         </div>
                     </div>
-                    <div class="text-xs text-gray-500 font-mono">Estimated Time Remaining: PENDING...</div>
+                    
+                    <div class="flex justify-between items-center pt-1 overflow-hidden">
+                         <div class="text-xs text-gray-500 font-mono flex gap-2">
+                             <span>></span>
+                             <span id="dynamic-detail" class="cursor-blink">OPTIMIZING DATABASE</span>
+                         </div>
+                         <div class="text-xs text-esports-red font-mono font-bold animate-pulse">WORKING...</div>
+                    </div>
                 </div>
 
                 <div class="pt-2">
@@ -186,6 +205,67 @@
     <footer class="w-full py-4 border-t border-white/5 bg-esports-black/90 text-center relative z-20">
         <p class="text-gray-600 text-sm font-rajdhani uppercase tracking-widest">&copy; 2024 Invictus Esports. Dominate The Lobby.</p>
     </footer>
+
+    <script>
+        // 1. The Detail List (Bottom Text - Changes only after full cycle)
+        const detailTasks = [
+            "OPTIMIZING DATABASE",
+            "BOOSTING PERFORMANCE",
+            "REDUCING LATENCY",
+            "IMPROVING RESPONSE TIMES",
+            "TUNING QUERIES",
+            "STREAMLINING PIPELINES",
+            "OPTIMIZING LOAD BALANCING",
+            "SCALING RESOURCES",
+            "PREPARING ARENA",
+            "UPGRADING LOBBY",
+            "CALIBRATING MATCHMAKING",
+            "SYNCING LEADERBOARDS",
+            "OPTIMIZING GAME SERVERS",
+            "STABILIZING MATCH FLOW"
+        ];
+
+        // 2. The Header Cycle (Top Text - Runs continuously)
+        const headerPhases = [
+            "INITIALIZING...",
+            "PROCESSING...",
+            "CALIBRATING...",
+            "DEPLOYING...",
+            "SYNCHRONIZING...",
+            "FINALIZING..."
+        ];
+
+        let taskIndex = 0; // Index for bottom text
+        let phaseIndex = 0; // Index for top text
+
+        const headerElement = document.getElementById('dynamic-header');
+        const detailElement = document.getElementById('dynamic-detail');
+
+        // Set initial state
+        detailElement.innerText = detailTasks[0];
+        headerElement.innerText = headerPhases[0];
+
+        // MASTER TIMER: Controls the top cycle steps
+        // 1500ms * 6 steps = 9000ms (9 seconds) total cycle time.
+        setInterval(() => {
+            // Move to next phase
+            phaseIndex++;
+
+            // CHECK: Has the cycle completed?
+            if (phaseIndex >= headerPhases.length) {
+                // Reset phase to start
+                phaseIndex = 0;
+                
+                // TRIGGER: Change the bottom text now (and only now)
+                taskIndex = (taskIndex + 1) % detailTasks.length;
+                detailElement.innerText = detailTasks[taskIndex];
+            }
+
+            // Update top text
+            headerElement.innerText = headerPhases[phaseIndex];
+
+        }, 6000); // 6 seconds per phase change
+    </script>
 
 </body>
 </html>
