@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>500 Error</title>
 
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -22,13 +18,11 @@
       <div class="bar"></div>
       <div class="bar"></div>
     </div>
-
     <div class="gear two">
       <div class="bar"></div>
       <div class="bar"></div>
       <div class="bar"></div>
     </div>
-
     <div class="gear three">
       <div class="bar"></div>
       <div class="bar"></div>
@@ -36,9 +30,9 @@
     </div>
   </div>
 
-  <!-- Pure JS (no jQuery) -->
   <script>
-    setTimeout(() => {
+    // replaces jQuery safely
+    setTimeout(function () {
       document.body.classList.remove("loading");
     }, 1000);
   </script>
