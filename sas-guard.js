@@ -13,7 +13,7 @@
   'use strict';
 
   /* ── CONFIG ─────────────────────────────── */
-  var SAS_URL      = 'https://YOUR-SAS.vercel.app'; // ← your SAS URL (no trailing slash)
+  var SAS_URL      = 'https://spc.curiousengineer.com'; // ← your SAS URL (no trailing slash)
   var BLOCKED_PATH = '/blocked.html';               // blocked page on YOUR site (or null for inline)
   var SHOW_BADGE   = true;                          // session countdown badge
   /* ─────────────────────────────────────────── */
